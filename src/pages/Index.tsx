@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Search, Filter, MapPin, Bed, Star, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -5,12 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Index = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [bedrooms, setBedrooms] = useState("");
+  const navigate = useNavigate();
 
   // Mock featured properties data
   const featuredProperties = [
@@ -45,6 +47,16 @@ const Index = () => {
       rating: 4.9
     }
   ];
+
+  const handleSearch = () => {
+    // Navigate to properties page with search parameters
+    const searchParams = new URLSearchParams();
+    if (searchLocation) searchParams.set('location', searchLocation);
+    if (priceRange) searchParams.set('price', priceRange);
+    if (bedrooms) searchParams.set('bedrooms', bedrooms);
+    
+    navigate(`/properties?${searchParams.toString()}`);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
@@ -124,7 +136,7 @@ const Index = () => {
                   </SelectContent>
                 </Select>
 
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold">
+                <Button onClick={handleSearch} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold">
                   <Search className="mr-2 h-4 w-4" />
                   Search Properties
                 </Button>
