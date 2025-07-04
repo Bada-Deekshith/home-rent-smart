@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Filter, MapPin, Bed, Leaf, Star, ArrowRight } from "lucide-react";
+import { Search, Filter, MapPin, Bed, Star, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -11,7 +11,6 @@ const Index = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [bedrooms, setBedrooms] = useState("");
-  const [ecoFriendly, setEcoFriendly] = useState(false);
 
   // Mock featured properties data
   const featuredProperties = [
@@ -23,9 +22,7 @@ const Index = () => {
       bedrooms: 2,
       bathrooms: 2,
       image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=500",
-      ecoFriendly: true,
-      rating: 4.8,
-      virtualTour: true
+      rating: 4.8
     },
     {
       id: 2,
@@ -35,9 +32,7 @@ const Index = () => {
       bedrooms: 1,
       bathrooms: 1,
       image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=500",
-      ecoFriendly: false,
-      rating: 4.6,
-      virtualTour: false
+      rating: 4.6
     },
     {
       id: 3,
@@ -47,9 +42,7 @@ const Index = () => {
       bedrooms: 4,
       bathrooms: 3,
       image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=500",
-      ecoFriendly: true,
-      rating: 4.9,
-      virtualTour: true
+      rating: 4.9
     }
   ];
 
@@ -89,7 +82,7 @@ const Index = () => {
               </span>
             </h1>
             <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-              Discover amazing properties with virtual tours, neighborhood insights, and flexible lease terms. 
+              Discover amazing properties with neighborhood insights and flexible lease terms. 
               Your ideal home is just a search away.
             </p>
 
@@ -136,19 +129,6 @@ const Index = () => {
                   Search Properties
                 </Button>
               </div>
-              
-              <div className="flex items-center justify-center mt-4">
-                <label className="flex items-center text-white cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={ecoFriendly}
-                    onChange={(e) => setEcoFriendly(e.target.checked)}
-                    className="mr-2 rounded"
-                  />
-                  <Leaf className="mr-1 h-4 w-4 text-green-400" />
-                  Eco-friendly properties only
-                </label>
-              </div>
             </div>
           </div>
         </div>
@@ -170,19 +150,6 @@ const Index = () => {
                   alt={property.title}
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                 />
-                <div className="absolute top-4 left-4 flex gap-2">
-                  {property.ecoFriendly && (
-                    <Badge className="bg-green-500/80 text-white">
-                      <Leaf className="mr-1 h-3 w-3" />
-                      Eco-Friendly
-                    </Badge>
-                  )}
-                  {property.virtualTour && (
-                    <Badge className="bg-blue-500/80 text-white">
-                      Virtual Tour
-                    </Badge>
-                  )}
-                </div>
                 <div className="absolute top-4 right-4">
                   <div className="flex items-center bg-black/50 rounded-full px-2 py-1">
                     <Star className="h-3 w-3 text-yellow-400 mr-1" />
@@ -233,7 +200,7 @@ const Index = () => {
       {/* Features Section */}
       <div className="bg-white/5 backdrop-blur-sm border-y border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="text-center">
               <div className="bg-blue-600/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Search className="h-8 w-8 text-blue-400" />
@@ -243,19 +210,11 @@ const Index = () => {
             </div>
             
             <div className="text-center">
-              <div className="bg-emerald-600/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Leaf className="h-8 w-8 text-emerald-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Eco-Friendly Options</h3>
-              <p className="text-gray-300">Discover sustainable properties with green certifications</p>
-            </div>
-            
-            <div className="text-center">
               <div className="bg-purple-600/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Star className="h-8 w-8 text-purple-400" />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Virtual Tours</h3>
-              <p className="text-gray-300">Experience properties from home with immersive virtual tours</p>
+              <h3 className="text-xl font-semibold text-white mb-2">Quality Properties</h3>
+              <p className="text-gray-300">Curated listings with detailed information and high-quality photos</p>
             </div>
           </div>
         </div>
