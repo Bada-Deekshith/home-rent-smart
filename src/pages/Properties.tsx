@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Search, Filter, MapPin, Bed, Star, ArrowLeft } from "lucide-react";
+import { Search, Filter, MapPin, Bed, Star, ArrowLeft, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -76,16 +75,20 @@ const Properties = () => {
     }
   ];
 
+  // Convert USD to INR (approximate rate: 1 USD = 83 INR)
+  const convertToINR = (usdPrice: number) => Math.round(usdPrice * 83);
+
   const filteredProperties = allProperties.filter(property => {
+    const inrPrice = convertToINR(property.price);
     const matchesLocation = !searchLocation || 
       property.location.toLowerCase().includes(searchLocation.toLowerCase()) ||
       property.title.toLowerCase().includes(searchLocation.toLowerCase());
     
     const matchesPrice = !priceRange || 
-      (priceRange === "0-1500" && property.price <= 1500) ||
-      (priceRange === "1500-3000" && property.price > 1500 && property.price <= 3000) ||
-      (priceRange === "3000-5000" && property.price > 3000 && property.price <= 5000) ||
-      (priceRange === "5000+" && property.price > 5000);
+      (priceRange === "0-1500" && inrPrice <= 124500) ||
+      (priceRange === "1500-3000" && inrPrice > 124500 && inrPrice <= 249000) ||
+      (priceRange === "3000-5000" && inrPrice > 249000 && inrPrice <= 415000) ||
+      (priceRange === "5000+" && inrPrice > 415000);
     
     const matchesBedrooms = !bedrooms ||
       (bedrooms === "studio" && property.bedrooms === 0) ||
@@ -153,10 +156,10 @@ const Properties = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="">All Prices</SelectItem>
-                <SelectItem value="0-1500">$0 - $1,500</SelectItem>
-                <SelectItem value="1500-3000">$1,500 - $3,000</SelectItem>
-                <SelectItem value="3000-5000">$3,000 - $5,000</SelectItem>
-                <SelectItem value="5000+">$5,000+</SelectItem>
+                <SelectItem value="0-1500">₹0 - ₹1,24,500</SelectItem>
+                <SelectItem value="1500-3000">₹1,24,500 - ₹2,49,000</SelectItem>
+                <SelectItem value="3000-5000">₹2,49,000 - ₹4,15,000</SelectItem>
+                <SelectItem value="5000+">₹4,15,000+</SelectItem>
               </SelectContent>
             </Select>
 
@@ -223,8 +226,9 @@ const Properties = () => {
                 </div>
                 
                 <div className="flex items-center justify-between mb-4">
-                  <div className="text-2xl font-bold text-white">
-                    ${property.price.toLocaleString()}
+                  <div className="flex items-center text-2xl font-bold text-white">
+                    <IndianRupee className="h-6 w-6 mr-1" />
+                    {convertToINR(property.price).toLocaleString()}
                     <span className="text-sm text-gray-300 font-normal">/month</span>
                   </div>
                   <div className="flex items-center text-gray-300">

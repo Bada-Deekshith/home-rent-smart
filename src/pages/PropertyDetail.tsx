@@ -1,9 +1,8 @@
-
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, MapPin, Bed, Bath, Star, Mail, Phone, Calendar } from "lucide-react";
+import { ArrowLeft, MapPin, Bed, Bath, Star, Mail, Phone, Calendar, IndianRupee } from "lucide-react";
 
 const PropertyDetail = () => {
   const { id } = useParams();
@@ -71,6 +70,9 @@ const PropertyDetail = () => {
 
   const property = properties[id as keyof typeof properties];
 
+  // Convert USD to INR (approximate rate: 1 USD = 83 INR)
+  const convertToINR = (usdPrice: number) => Math.round(usdPrice * 83);
+
   if (!property) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
@@ -133,8 +135,9 @@ const PropertyDetail = () => {
                 <MapPin className="h-5 w-5 mr-2" />
                 {property.location}
               </div>
-              <div className="text-3xl font-bold text-white mb-4">
-                ${property.price.toLocaleString()}
+              <div className="flex items-center text-3xl font-bold text-white mb-4">
+                <IndianRupee className="h-8 w-8 mr-1" />
+                {convertToINR(property.price).toLocaleString()}
                 <span className="text-lg text-gray-300 font-normal">/month</span>
               </div>
             </div>
