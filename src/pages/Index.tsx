@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Search, Filter, MapPin, Bed, Eco, Star, ArrowRight } from "lucide-react";
+import { Search, Filter, MapPin, Bed, Leaf, Star, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -146,7 +145,7 @@ const Index = () => {
                     onChange={(e) => setEcoFriendly(e.target.checked)}
                     className="mr-2 rounded"
                   />
-                  <Eco className="mr-1 h-4 w-4 text-green-400" />
+                  <Leaf className="mr-1 h-4 w-4 text-green-400" />
                   Eco-friendly properties only
                 </label>
               </div>
@@ -174,7 +173,7 @@ const Index = () => {
                 <div className="absolute top-4 left-4 flex gap-2">
                   {property.ecoFriendly && (
                     <Badge className="bg-green-500/80 text-white">
-                      <Eco className="mr-1 h-3 w-3" />
+                      <Leaf className="mr-1 h-3 w-3" />
                       Eco-Friendly
                     </Badge>
                   )}
@@ -245,7 +244,7 @@ const Index = () => {
             
             <div className="text-center">
               <div className="bg-emerald-600/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Eco className="h-8 w-8 text-emerald-400" />
+                <Leaf className="h-8 w-8 text-emerald-400" />
               </div>
               <h3 className="text-xl font-semibold text-white mb-2">Eco-Friendly Options</h3>
               <p className="text-gray-300">Discover sustainable properties with green certifications</p>
